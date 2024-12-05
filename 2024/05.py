@@ -28,21 +28,9 @@ class TodayRunner(Runner):
                 violation = True
             seen.add(number)
 
-        return not violation
-
-    # To be called after self.parse
-    def exec_a(self, _):
-        result = 0
-        for page in self.pages:
-            if self.is_valid(page):
-                result += self.middle_page(page)
-        return result
-    
+        return not violation    
 
     def fix_page(self, page):
-        original_page = page.copy()
-        # while not self.is_valid(page):
-
         seen = set()
         for i, number in enumerate(page):
             conflict = seen.intersection(self.rules[number])
@@ -53,18 +41,18 @@ class TodayRunner(Runner):
 
             seen.add(number)
 
-        if not self.is_valid(page):
-            print('needs more than one round', original_page)
-        
         return page
 
     def exec(self, _):
-        result = 0
-        pages = [p for p in self.pages if not self.is_valid(p)]
-        for page in pages:
-            page = self.fix_page(page)
-            result += self.middle_page(page)
-        return result
+        part_a_result = 0
+        part_b_result = 0
+        for page in self.pages:
+            if self.is_valid(page):
+                part_a_result += self.middle_page(page)
+            else:
+                page = self.fix_page(page)
+                part_b_result += self.middle_page(page)
+        return part_a_result, part_b_result
 
 
 test_input = """
