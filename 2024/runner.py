@@ -6,7 +6,10 @@ class Runner():
     def parse(self, input):
         return input
 
-    def exec(self, input):
+    def part_a(self):
+        pass
+
+    def part_b(self):
         pass
 
     def run(self, is_test_run):
@@ -14,7 +17,5 @@ class Runner():
             input = self.test_input
         else:
             input = self.real_input
-        parsed_input = self.parse(input.split('\n')[1:-1])
-
-        result = self.exec(parsed_input)
-        print(result)
+        self.parse(input.split('\n')[1:-1])
+        return (self.part_a(), self.part_b())
